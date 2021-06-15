@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat-App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+   <style>
+        body {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+        
+        /* for selection color */
+        ::-moz-selection {
+            color: rgb(199, 110, 59);
+            background-color:pink;
+        }
+
+        ::selection {
+            color: rgb(199, 110, 59);
+            background-color:pink;
+        }
+
+        /* for scroll bar */
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            /* display:none; */
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            border-radius: 0px;
+
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(155, 148, 148);
+            /* border-radius: 2px; */
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(109, 105, 105);
+        }
+
+        /*for placeholder color */
+        .warning-placeholder::-webkit-input-placeholder {
+            color: #d35827;
+            font-weight: bold;
+        }
+        .exist-placeholder::-webkit-input-placeholder {
+            color: #368815;
+            font-weight: bold;
+        }
+
+        .write-something-alert::-webkit-input-placeholder {
+            color: #368815;
+            font-weight: bold;
+        }
+
+        .font-size-0{
+            font-size: 0.7rem;
+        }
+        .font-size-1{
+            font-size: 1rem;
+        }
+        .font-size-2{
+            font-size: 1.5rem;
+        }
+        .font-size-3{
+            font-size: 2rem;
+        }
+        .font-size-4{
+            font-size: 2.5rem;
+        }
+    </style>
+
+
+</head>
+
+<body class="">
+    <!-- <div class="container col-md-8 col-sm-10 col-12"> -->
+        <nav class="navbar navbar-light bg-light     container col-md-8 col-sm-10 col-12">
+            <a class="navbar-brand" style="font-size: 2rem;">Chat-Application</a>
+            <a class="form-inline navbar-right-side">
+                <h2 class="mr-3 current-username-elment" style="display: none;"></h2>
+                <form action="/logout">
+                    <button type="submit" class="badge badge-light logout-button-elment" style="display: none;">Logout</button>
+                </form>
+            </a>
+          </nav>
+    <!-- </div> -->
+    
+    <!-- <div class = " row container d-flex flex-row-reverse" style="display:none">
+        <div class="p-1">not logged in</div>
+        <div class="p-2">
+            <button id="logout-button" class="badge badge-light">Logout</button>
+        </div>
+    </div> -->
+    <!-- big main div -->
+    <div class="container col-md-8 col-sm-10 col-12 border" style="margin-top: 5vh">
+        <!-- upper heading -->
+        <!-- <div class="row mt-1">
+            <h3 class="col">Chat-Application</h3> -->
+
+            <!-- leave button -->
+            <!-- <form action="/logout" class="row m-1 col- 5col-sm-3" method="GET">
+                <button type="button" class="form-control disconnect-button btn btn-outline-danger">Leave-Chat</button>
+            </form> -->
+        <!-- </div> --> 
+
+        <!-- middle two boxes --> 
+        <div class="row" style="height: 60vh; padding-bottom: 10px;">
+
+            <!-- left box  -->
+            <div class="col-sm-4 col-5 border  " style="height: 60vh; overflow:auto;">
+                
+
+                <h4 class="h5 mt-2">Add User:</h4>
+                <!-- <input class="col-12 p-1 sm" type="text" placeholder=" "> -->
+
+                <!-- this field is for searching user -->
+           
+                <div class="input-group mb-3">
+                    <input type="text"  class="form-control user-name-input" placeholder="Username">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="user-add-button">Add</button>
+                    </div>
+                </div>
+                <!-- <button type="text" class="show-user-not-found bg-warning" placeholder="User not found" disabled>  -->
+                  
+                
+                <!-- chat mates names -->
+                <h4 class="h5 mt-1">Users:</h4>
+                <div class="list-group user-show-area">
+                    <!-- <a href="#" class="list-group-item list-group-item-action bg-dark text-light chatmate-button" >Cras</a> -->
+                    <!-- <a href="#" class="list-group-item list-group-item-action">asdf</a>
+                    <a href="#" class="list-group-item list-group-item-action">dsfd</a>
+                    <a href="#" class="list-group-item list-group-item-action">Porta </a> -->
+                </div>
+
+            </div>
+
+            <!-- right box contain chats -->
+            <div class="col border" style="height: 60vh;">
+                <div class="current-chat-mate container" style=" overflow:auto; height: 6vh;">
+                    <div class="row">
+                        <div class="col-9 font-size-2">
+                            <span class="current-chat-mate-fullname"><!-- Fullname --></span>
+                            <span class="current-chat-mate-username font-size-1"><!-- Username --></span>
+                            <hr class="m-0 p-0">
+                        </div>
+                        <div class="col font-size-1 is-typing" style="text-align:bottom; line-height: 2">
+                            <!-- typing -->
+                        </div>
+                    </div>
+                    <hr class="m-0 p-0">
+                </div>
+                <div class="chat-box" style=" overflow:auto; height: 52vh;">
+
+                </div>
+
+
+                <!-- right -->
+                <!-- <div class="chat-message row" style="margin: 2px;">
+                    <div class="col"></div>
+                    <div class="col-10 col-sm-8 border bg-dark text-light border-dark rounded-left">
+                        <div>
+                            <span class="text-muted">Barry</span>
+                            <span class="text-muted">20:30</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur consectetur adipisicing elit elit elit consectetur
+                            adipisicing elit adipisicing elit. </p>
+                    </div>
+                </div> -->
+
+                <!-- left -->
+                <!-- <div class="chat-message row" style="margin: 2px;">
+                    <div class="col-10 col-sm-8 border bg-dark text-light border-dark rounded-right">
+                        <div>
+                            <span class="text-muted">Harry</span>
+                            <span class="text-muted">21:30</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur consectetur adipisicing elit elit elit consectetur
+                            adipisicing elit adipisicing elit. </p>
+                    </div>
+                    <div class="col"></div>
+                </div>  -->
+
+            </div>
+        </div>
+
+        <!-- bottom row -->
+        <form id="chat-form" class="row mt-2 mx-0">
+            <input type="text" class="form-control mb-2 col mr-2 message-input-field" id="" placeholder="Type a message" name="message">
+            <button type="submit" class="btn btn-primary mb-2 col-4 col-sm-2" name="send">Send</button>
+        </form> 
+       
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js" integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ==" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
