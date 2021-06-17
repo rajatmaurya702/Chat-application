@@ -174,7 +174,7 @@ function displayMessage(fromClient, message, time, current_user_username){
         
         new_message.innerHTML = 
         `<div class="col"></div>
-        <div class="col-10 col-sm-8 border bg-dark text-light border-dark rounded-left">
+        <div class="col-10 col-sm-8 border bg-dark text-light break-word border-dark rounded-left rounded-bottom">
             <div>
                 <span class="text-muted">${"you"}</span>
                 <span class="text-muted">${time}</span>
@@ -185,7 +185,7 @@ function displayMessage(fromClient, message, time, current_user_username){
     else{
         //message display in left side
         new_message.innerHTML = 
-        `<div class="col-10 col-sm-8 border bg-dark text-light border-dark rounded-right">
+        `<div class="col-10 col-sm-8 border bg-dark break-word text-light border-dark rounded-right rounded-bottom">
             <div>
                 <span class="text-muted">${fromClient.fullname}</span>
                 <span class="text-muted">${time}</span>
@@ -289,7 +289,7 @@ socket.on("isvalidUsername", ({username, fullname, isValid})=>{ //if not valid i
     }
 });
 
-//to add user
+//to add user and to select user and render its messages in message box
 function addUser(username, fullname){
     const add_user_button = document.createElement("a");
     add_user_button.href = "#";
@@ -299,6 +299,9 @@ function addUser(username, fullname){
 
     //to focus(color) the current selected button :: work remain
     add_user_button.addEventListener("click", (e)=>{
+        if(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 576){
+            backButtonClick(); //this function will toggle the view to message box
+        }
         console.log("chatmate button clicked :: ", username);
         // console.log(e.target);
 
@@ -449,6 +452,47 @@ const showUsernameExist = (message)=>{
 }
 
  
+
+///frontend responsive display setup
+
+const messageBoxesDiv = document.querySelector("#message-boxes-div");
+const userAddChatmateDiv = document.querySelector("#user-add-chatmate-div");
+// const backButton = document.querySelector("#back-button");
+const  messageSendDiv =  document.querySelector("#message-send-div");
+
+function backButtonClick(){
+    if(messageBoxesDiv.classList.contains("display-this")){
+        messageBoxesDiv.classList.remove("display-this");
+        messageBoxesDiv.classList.add("not-display-this");
+
+        messageSendDiv.style.display = "none"
+
+        userAddChatmateDiv.classList.remove("not-display-this");
+        userAddChatmateDiv.classList.add("display-this");
+    }
+    else{
+        userAddChatmateDiv.classList.remove("display-this");
+        userAddChatmateDiv.classList.add("not-display-this");
+
+        messageBoxesDiv.classList.remove("not-display-this");
+        messageBoxesDiv.classList.add("display-this");
+
+        messageSendDiv.style.display = 'block'
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // disconnectBotton.addEventListener("click", ()=>{
 //     socket.disconnect();
 //     window.close();
