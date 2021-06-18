@@ -461,29 +461,41 @@ const userAddChatmateDiv = document.querySelector("#user-add-chatmate-div");
 const  messageSendDiv =  document.querySelector("#message-send-div");
 
 function backButtonClick(){
-    if(messageBoxesDiv.classList.contains("display-this")){
-        messageBoxesDiv.classList.remove("display-this");
-        messageBoxesDiv.classList.add("not-display-this");
+    if(messageBoxesDiv.style.display !== 'none'){
+        // messageBoxesDiv.classList.remove("display-this");
+        // messageBoxesDiv.classList.add("not-display-this");
 
+        userAddChatmateDiv.style.display = 'block'
+        messageBoxesDiv.style.display = 'none'
         messageSendDiv.style.display = "none"
 
-        userAddChatmateDiv.classList.remove("not-display-this");
-        userAddChatmateDiv.classList.add("display-this");
+        // userAddChatmateDiv.classList.remove("not-display-this");
+        // userAddChatmateDiv.classList.add("display-this");
     }
     else{
-        userAddChatmateDiv.classList.remove("display-this");
-        userAddChatmateDiv.classList.add("not-display-this");
+        // userAddChatmateDiv.classList.remove("display-this");
+        // userAddChatmateDiv.classList.add("not-display-this");
 
-        messageBoxesDiv.classList.remove("not-display-this");
-        messageBoxesDiv.classList.add("display-this");
+        // messageBoxesDiv.classList.remove("not-display-this");
+        // messageBoxesDiv.classList.add("display-this");
 
-        messageSendDiv.style.display = 'block'
+        // messageSendDiv.style.display = 'block'
         // messageSendDiv.classList.add("display-top");
+
+        userAddChatmateDiv.style.display = 'none'
+        messageBoxesDiv.style.display = 'block'
+        messageSendDiv.style.display = "block"
 
     }
 }
 
 const appHeight = () => {
+    if(window.innerHeight > 575){
+        userAddChatmateDiv.style.display = 'block'
+        messageBoxesDiv.style.display = 'block'
+        messageSendDiv.style.display = "block"
+
+    }
     const doc = document.documentElement
     doc.style.setProperty('--app-height', `${window.innerHeight}px`)
     console.log(window.innerHeight)
