@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <title>Chat-App</title><link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
    <style>
         body {
             overflow-wrap: break-word;
             word-wrap: break-word;
+            /* background-color: whitesmoke;; */
         }
 
         .break-word{
@@ -98,6 +101,7 @@
         #user-add-chatmate-div {
             height: 60vh;
             background-color: whitesmoke;
+            
         }
         
         #message-boxes-div {
@@ -109,18 +113,18 @@
             margin-left: -15px;
             margin-right: -15px;
         }
-
-
-        #message-boxes-div .chat-box{
-            height: 52vh;
-        }
-        
+         
         .display-this {
             z-index: 1;
         }
         .not-display-this{
             z-index: 0;
         }
+
+        #message-boxes-div .chat-box{
+            height: 52vh;
+        }
+       
         .display-top {
             z-index: 10;
         }
@@ -130,6 +134,62 @@
         :root {
             --app-height:100vh;
         }
+        .current-chat-mate-nested {
+            border-bottom: 1px solid rgb(182, 173, 173);
+            padding-bottom: 5px;
+        }
+        .current-chat-mate {
+            height: 3rem;
+        }
+       
+        /* model */
+        .model-info {
+            font-family: 'Open Sans', sans-serif;
+            /* font-weight: bold; */
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top:0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .model-info-content {
+            width: 20vw;
+            background-color: whitesmoke;
+            /* height: 10rem; */
+            border-radius: 7px;
+            padding:1rem;
+            text-align: center;
+            margin: auto;
+            position: absolute;
+        }
+        .cancel-model {
+            display: inline-block;
+            position: absolute;
+            top:0;
+            right:10px;
+            font-size: 42px;
+            transform: rotate(45deg);
+            cursor: pointer;
+            user-select: none;
+            transition: 300ms;
+        }
+        
+        .cancel-model:hover{
+            transform: rotate(135deg);
+        }
+        .info-fullname-div {
+            font-size: 2rem;
+        }
+        .info-username-div {
+            font-size: 1.5rem;
+        }
+        /* model */
+
 
         @media all and (max-width:575px){
             body {
@@ -154,13 +214,13 @@
                 /* display: none; */
                 position: fixed;
                 top: 4rem;
-                height: calc(var(--app-height) - 5rem);
+                height: calc(var(--app-height) - 6.8rem);
+                background-color: whitesmoke;
             }
             #message-boxes-div{
                 position: fixed;
                 top: 4rem;
                 height: calc(var(--app-height) - 7rem);
-
             }
             #message-send-div{
 
@@ -186,7 +246,49 @@
             #back-button:hover {
                 background-color: rgb(76, 154, 228);
             }
+            .truncate1 {   
+                /* for username in navbvar */
+                text-align: right;
+                width: 75px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            .truncate2{
+                /* for username and fullname of current chatmate */
+                display: inline-block;
+                text-align: left;
+                max-width: 75px;
+                margin-left: 0;
+                margin-right: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            .current-chat-mate-nested {
+                background-color: rgb(218, 213, 213);
+                border-bottom:0;
+                padding-bottom: 0;
+                height: 2.6rem;
+             }
+             .model-info-content {
+                width: 80vw;
+                background-color: whitesmoke;
+                /* height: 10rem; */
+                border-radius: 7px;
+                padding:1rem;
+                text-align: center;
+                margin: auto;
+                position: absolute;
+            }
+
+             
+             
         }
+        .display-none {
+            display: none;
+        }
+
 
     </style>
 
@@ -196,9 +298,9 @@
 <body class="">
     <!-- <div class="container col-md-8 col-sm-10 col-12"> -->
         <nav class="navbar navbar-light bg-light     container col-md-8 col-sm-10 col-12">
-            <a class="navbar-brand">Chat-Application</a>
+            <a href='/' class="navbar-brand">Chat-Application</a>
             <a class="form-inline navbar-right-side">
-                <h2 class="mr-3 current-username-elment" style="display: none;"></h2>
+                <h2 class="mr-3 current-username-elment truncate1" style="display: none;"></h2>
                 <form action="/logout">
                     <button type="submit" class="badge badge-light logout-button-elment" style="display: none;">Logout</button>
                 </form>
@@ -249,19 +351,19 @@
 
             <!-- right box contain chats -->
             <div id="message-boxes-div" class="col border display-this">
-                <div class="current-chat-mate container" style=" overflow:auto; height: 3rem;">
-                    <div class="row">
+                <div class="current-chat-mate container" style=" overflow:auto; ">
+                    <div class="row current-chat-mate-nested">
                         <div  class="back-button"   onclick="backButtonClick()"><i class="fas fa-arrow-left" style="color: #007bff;"></i></div>
-                        <div class="col-8 font-size-2">
-                            <span class="current-chat-mate-fullname bold font-size-1"><!-- Fullname --></span>
-                            <span class="current-chat-mate-username font-size-0"><!-- Username --></span>
-                            <hr class="m-0 p-0">
+                        <div class="col-7 font-size-2 ">
+                            <span class="current-chat-mate-fullname bold font-size-1 truncate2"><!-- Fullname --></span>
+                            <span class="current-chat-mate-username font-size-0 truncate2"><!-- Username --></span>
+                            <!-- <hr class="m-0 p-0"> -->
                         </div>
-                        <div class="col font-size-0 is-typing" style="text-align:bottom; line-height: 2">
+                        <div class="col font-size-0 is-typing" style="align-self:center;">
                             <!-- typing -->
                         </div>
                     </div>
-                    <hr class="m-0 p-0">
+                    <!-- <hr class="m-0 p-0"> -->
                 </div>
                 <div class="chat-box" style=" overflow:auto;">
 
@@ -307,6 +409,18 @@
         </form> 
     </div>
 
+    <!-- modal for user information -->
+    <!-- Modal -->
+    <section class="model-info display-none">
+        <div class="model-info-content">
+            <span class="cancel-model">+</span>
+            <h1 class="font-size-2">About</h1>
+            <hr>
+
+            <div class="info-fullname-div">sldjf</div>
+            <div class="info-username-div">sldjf@ssfsdf</div>
+        </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js" integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ==" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>

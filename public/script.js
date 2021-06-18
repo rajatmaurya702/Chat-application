@@ -491,6 +491,19 @@ const appHeight = () => {
 window.addEventListener('resize', appHeight)
 appHeight()
 
+
+//info modal hid show
+const cancelModel = document.querySelector(".cancel-model");
+const modelInfo = document.querySelector(".model-info");
+
+cancelModel.addEventListener("click", ()=>{
+    modelInfo.classList.add("display-none");
+})
+
+currentUsernameElement.addEventListener("click", ()=>{
+    modelInfo.classList.remove("display-none");
+})
+
    
 // const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 // console.log(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0), "hi")
