@@ -127,6 +127,9 @@
         .display-fixed {
             display: fixed;
         }
+        :root {
+            --app-height:100vh;
+        }
 
         @media all and (max-width:575px){
             body {
@@ -151,12 +154,12 @@
                 /* display: none; */
                 position: fixed;
                 top: 4rem;
-                height: calc(100vh - 5rem);
+                height: calc(var(--app-height) - 5rem);
             }
             #message-boxes-div{
                 position: fixed;
                 top: 4rem;
-                height: calc(100vh - 7rem);
+                height: calc(var(--app-height) - 7rem);
 
             }
             #message-send-div{
@@ -165,7 +168,7 @@
                 bottom: 0;
             }
             #message-boxes-div .chat-box{
-                height: calc(100vh - 7rem - 3rem);
+                height: calc(var(--app-height) - 7rem - 3rem);
             }
             .back-button {
                 display: inline-block;

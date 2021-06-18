@@ -483,6 +483,13 @@ function backButtonClick(){
     }
 }
 
+const appHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    console.log(window.innerHeight)
+}
+window.addEventListener('resize', appHeight)
+appHeight()
 
    
 // const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
