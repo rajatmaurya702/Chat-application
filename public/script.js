@@ -478,14 +478,25 @@ function backButtonClick(){
         messageBoxesDiv.classList.add("display-this");
 
         messageSendDiv.style.display = 'block'
+        // messageSendDiv.classList.add("display-top");
 
     }
 }
 
 
+   
+// const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+// console.log(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0), "hi")
+// if(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 576){
+//     console.log(vh);
+//     console.log(messageBoxesDiv.style.height);
 
+//     messageBoxesDiv.style.backgroundColor = "red";
+//     userAddChatmateDiv.style.backgroundColor = 'black';
 
-
+//     messageBoxesDiv.style.height = 100;
+//     userAddChatmateDiv.style.height = vh - 250;
+// }
 
 
 

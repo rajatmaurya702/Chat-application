@@ -121,6 +121,12 @@
         .not-display-this{
             z-index: 0;
         }
+        .display-top {
+            z-index: 10;
+        }
+        .display-fixed {
+            display: fixed;
+        }
 
         @media all and (max-width:575px){
             body {
@@ -145,12 +151,12 @@
                 /* display: none; */
                 position: fixed;
                 top: 4rem;
-                height: 80vh;
+                height: calc(100vh - 5rem);
             }
             #message-boxes-div{
                 position: fixed;
                 top: 4rem;
-                height: 80vh;
+                height: calc(100vh - 7rem);
 
             }
             #message-send-div{
@@ -159,7 +165,7 @@
                 bottom: 0;
             }
             #message-boxes-div .chat-box{
-                height: 72vh;
+                height: calc(100vh - 7rem - 3rem);
             }
             .back-button {
                 display: inline-block;
