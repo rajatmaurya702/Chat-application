@@ -501,6 +501,8 @@ cancelModel.addEventListener("click", ()=>{
 })
 
 currentUsernameElement.addEventListener("click", ()=>{
+    document.querySelector(".info-username-div").innerHTML = current_user_username
+    document.querySelector(".info-fullname-div").innerHTML = current_user_fullname
     modelInfo.classList.remove("display-none");
 })
 
