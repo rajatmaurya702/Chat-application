@@ -20,6 +20,8 @@ For large screen devices:
 
 ![Screenshot of the application](https://github.com/rajatmaurya702/chat-application/blob/master/photos/photo1.jpg?raw=true)
 
+Sample user: abc@x.z
+Note: Add the above username for demo.
 
 For small screen devices:
 
