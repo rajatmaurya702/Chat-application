@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json())
 
 //ejs template
+app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 
 //connection to database
