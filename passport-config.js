@@ -2,7 +2,7 @@ const LocalStrategy = require("passport-local").Strategy;
 
 var initializer  = function(passport, User){
     const verifyCallBack = function (username, password, done) { //here username and password are from body i.e, username and password
-        console.log("verifyCallBack start");            
+      //  console.log("verifyCallBack start");            
         User.findOne({ username: username }, function (err, user) {
             // console.log("verifyCallBack", user);
             if (err) { return done(err); }

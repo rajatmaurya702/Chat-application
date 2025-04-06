@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 //connecting to database
 
 //mongodb://localhost:27017/userTempDB
-const connection = mongoose.createConnection(`mongodb+srv://admin-rajat32:${process.env.MONGODB_PASSWORD}@cluster0.n5haz.mongodb.net/userTempDB?retryWrites=true&w=majority`,
+const connection = mongoose.createConnection(`mongodb+srv://admin-rajat32:${process.env.MONGODB_PASSWORD}@cluster0.92ha5p7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
     { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true }
 );
 

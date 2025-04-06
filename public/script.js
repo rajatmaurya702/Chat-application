@@ -35,7 +35,7 @@ const chatmates_set = new Set();
 */
 
 socket.on("tome", (m)=>{
-    console.log("tome ::", m);
+  //  console.log("tome ::", m);
 })
 
 socket.on("message", ({type, toClient, fromClient, message, time})=>{ //m is message
@@ -54,7 +54,7 @@ socket.on("message", ({type, toClient, fromClient, message, time})=>{ //m is mes
         
     
     if(type === "first-time-user"){
-        console.log("first-time-user");
+      //  console.log("first-time-user");
         // const username_div = document.createElement("div");
         // username_div.classList.add("row","container", "d-flex", "flex-row-reverse");
    
@@ -69,7 +69,7 @@ socket.on("message", ({type, toClient, fromClient, message, time})=>{ //m is mes
      
     
         logoutButtonElement.addEventListener("click", ()=>{
-            console.log("logout_div clicked");
+          //  console.log("logout_div clicked");
             // socket.disconnect(); 
             current_user_username = "";
             current_user_fullname = "";
@@ -82,7 +82,7 @@ socket.on("message", ({type, toClient, fromClient, message, time})=>{ //m is mes
         current_user_username = toClient.username;
         current_user_fullname= toClient.fullname
 
-        console.log("user saved");
+      //  console.log("user saved");
 
         //requesting for the data from the database first time
         socket.emit("client:first-time-data", "");
@@ -102,7 +102,7 @@ socket.on("message", ({type, toClient, fromClient, message, time})=>{ //m is mes
 
 //first time data received from the server
 socket.on("server:chatdata first-time", (m)=>{
-    console.log("server:chatdata first-time ");
+  //  console.log("server:chatdata first-time ");
     // console.log(m);
     
     m.forEach((single_json_message)=>{
@@ -214,7 +214,7 @@ chatForm.addEventListener("submit", (e)=>{
     e.preventDefault();
 
     if(current_chatmate.username === "") {
-        console.log("chatmate not contain username");
+      //  console.log("chatmate not contain username");
         return;
     };
 
@@ -279,12 +279,12 @@ userNameInput.addEventListener("keydown", (e)=>{
 //getting from server that username is valid
 socket.on("isvalidUsername", ({username, fullname, isValid})=>{ //if not valid it will send empty string
     if(isValid && username !== "" && username != current_user_username){
-        console.log("valid");
+      //  console.log("valid");
         addUser(username, fullname);
         chatmates_set.add(username);
     }
     else{
-        console.log("invalid");
+      //  console.log("invalid");
         showUsernameInvalid("Not found.");
     }
 });
@@ -302,7 +302,7 @@ function addUser(username, fullname){
         if(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 576){
             backButtonClick(); //this function will toggle the view to message box
         }
-        console.log("chatmate button clicked :: ", username);
+      //  console.log("chatmate button clicked :: ", username);
         // console.log(e.target);
 
         //setting current chatmate name
@@ -392,13 +392,13 @@ setInterval(()=>{
 var isTyping = false;
 setInterval(()=>{
     if(isTyping === true){
-        console.log("is typing is true")
+      //  console.log("is typing is true")
         socket.emit("Typing", current_chatmate.username);
     }
 }, 3000);
 
 socket.on("Typing", (recieved_username)=>{
-    console.log(recieved_username, " is typing");
+  //  console.log(recieved_username, " is typing");
     if(recieved_username === current_chatmate.username){
         const isTypingBox = document.querySelector(".is-typing");
 
@@ -498,7 +498,7 @@ const appHeight = () => {
     }
     const doc = document.documentElement
     doc.style.setProperty('--app-height', `${window.innerHeight}px`)
-    console.log(window.innerHeight)
+  //  console.log(window.innerHeight)
 }
 window.addEventListener('resize', appHeight)
 appHeight()
@@ -522,8 +522,8 @@ currentUsernameElement.addEventListener("click", ()=>{
 // const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
 // console.log(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0), "hi")
 // if(Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) < 576){
-//     console.log(vh);
-//     console.log(messageBoxesDiv.style.height);
+//   //  console.log(vh);
+//   //  console.log(messageBoxesDiv.style.height);
 
 //     messageBoxesDiv.style.backgroundColor = "red";
 //     userAddChatmateDiv.style.backgroundColor = 'black';

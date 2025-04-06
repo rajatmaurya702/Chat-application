@@ -3,12 +3,12 @@ const express = require("express")
 const http = require("http");
 const socketio = require("socket.io")
 const path = require("path")
-const formateMessage = require("./utils/messageFormate");
+const formateMessage = require("./utils/messageFormate.js");
 const bodyParser = require("body-parser");
 const flash = require("express-flash")
 
 
-const models = require("./models");
+const models = require("./models.js");
 const User = models.User;
 const session_model = models.session_model;
 
@@ -70,7 +70,7 @@ app.use(passport.session());
 //login routes --------------------------------------
 console.log("first route");
 app.get("/", function (req, res) {
-    console.log("/ get");
+    // console.log("/ get");
     if(req.isAuthenticated()){
         // return res.redirect("/chat-window.html");
         return res.sendFile(path.join(__dirname, "public/chat-window.html"));
@@ -80,7 +80,7 @@ app.get("/", function (req, res) {
 
 //sign up
 app.get("/signup", function (req, res) {
-    console.log("/signup get");
+  //  console.log("/signup get");
     if(req.isAuthenticated()){
         return res.sendFile(path.join(__dirname, "public/chat-window.html"));
     }
@@ -88,7 +88,7 @@ app.get("/signup", function (req, res) {
 })
 
 app.post("/signup", function (req, res) {
-    console.log("route: /signup", req.user ? req.user.username : null, " sessionId ", req.sessionID);
+  //  console.log("route: /signup", req.user ? req.user.username : null, " sessionId ", req.sessionID);
     const name = req.body.name;
     const username = req.body.username;
     const password = req.body.password;
@@ -159,7 +159,7 @@ app.post("/signup", function (req, res) {
 
 //login
 app.get("/login", function (req, res) {
-    console.log("login get")
+  //  console.log("login get")
     if(req.isAuthenticated()){
         return res.redirect('/chat-window.html');
     }
@@ -183,8 +183,8 @@ app.post('/login', function(req, res, next) {
 
        //req.logIn is passport function use to save session
       req.logIn(user, function(err) {
-        //   console.log("req.user ", req.user); //attach by deserialize passport function
-        //   console.log("req.logIn" , user);
+        // //  console.log("req.user ", req.user); //attach by deserialize passport function
+        // //  console.log("req.logIn" , user);
 
         if (err) { return next(err); }
         //adding session_id to user db
@@ -211,7 +211,7 @@ app.post('/login', function(req, res, next) {
 
 //logout
 app.get("/logout", function (req, res) {
-    console.log("route: /logout", req.user ? req.user.username : null, " sessionId ", req.sessionID);
+  //  console.log("route: /logout", req.user ? req.user.username : null, " sessionId ", req.sessionID);
     if(req.isAuthenticated()){
         User.findById(req.user._id, (err, doc)=>{
             if(err){
@@ -248,7 +248,7 @@ app.get("/logout", function (req, res) {
 });
 
 app.get("/logout-from-all-session", function(req, res){
-    console.log("route: /logout-from-all-session", req.user ? req.user.username : null, " sessionId ", req.sessionID);
+  //  console.log("route: /logout-from-all-session", req.user ? req.user.username : null, " sessionId ", req.sessionID);
     if(req.isAuthenticated()){
         User.findById(req.user._id, (err, doc)=>{
             if(err){
@@ -257,7 +257,7 @@ app.get("/logout-from-all-session", function(req, res){
             }
             else{
                 //removing sessions other than current session
-                console.log(doc.sessions);
+              //  console.log(doc.sessions);
 
                 if(doc.sessions.length == 0) {
                     console.error("ERROR :: /logout-from-all-session, doc.sessions.length == 0")
@@ -267,22 +267,22 @@ app.get("/logout-from-all-session", function(req, res){
                 //to delete multitple session
                 let i = 0;
                 function util_1(){
-                    console.log(`ind ${i}`);
+                  //  console.log(`ind ${i}`);
                     if(doc.sessions[i] != req.sessionID) {
                         session_model.deleteOne({_id : doc.sessions[i]}, (err)=>{
-                            console.log("debugging  multiple delete", i);
+                          //  console.log("debugging  multiple delete", i);
                             if(!err) delete doc.sessions[i];
                             else {
                                 console.error("Error :: database : error in  CLEARING SESSIONS from SESSIONS-DB");
                                 console.error("Error >> _r  oute : /logout-from-all-session;  _error : mongoose session_model.deleteOne");
                             }
                             if(i != doc.sessions.length -1){
-                                console.log("debug 2");
+                              //  console.log("debug 2");
                                 i++;
                                 return util_1();
                             }
                             else if(i == doc.sessions.length -1){
-                                console.log("debug 10");
+                              //  console.log("debug 10");
                                  return util_2();
                             }
                         });
@@ -300,15 +300,15 @@ app.get("/logout-from-all-session", function(req, res){
                 util_1();
                 //just to run below code in sync
                 function util_2(){
-                    console.log(doc.sessions);
+                  //  console.log(doc.sessions);
                     doc.sessions = doc.sessions.filter((el)=>{
                         return el != null;
                     })
                     // console.log(doc.sessions);
-                    console.log(doc);
+                  //  console.log(doc);
                     // doc.markModified("sessions");
                     doc.save((e, result)=>{
-                        console.log(result);
+                      //  console.log(result);
                         if(e) {
                             console.error("Error(not a big issue):: database : error in  UPDATING CLEARED SESSIONS IN user-collection");
                         }
@@ -399,7 +399,7 @@ io.on("connection", socket => {
         doc.save((e)=>{
            if(e) {
             console.error("Error while pushing socket_id to User-collection in database");
-            console.log(e);
+          //  console.log(e);
            }
         });
     });
@@ -567,7 +567,7 @@ io.on("connection", socket => {
 
     socket.on("disconnect", ()=>{
         //removing the socket it from respect user
-        console.log("disconnect:: username: ", curr_user.username);
+      //  console.log("disconnect:: username: ", curr_user.username);
 
         User.findById(current_user._id, function(err, doc){
             if (err) { return next(err);}
@@ -598,6 +598,6 @@ io.on("connection", socket => {
 const port = process.env.PORT ? process.env.PORT : 3000
 
 server.listen(port, ()=>{
-    console.log(`Chat application : server started at ${port}`);
+  //  console.log(`Chat application : server started at ${port}`);
 })
 
